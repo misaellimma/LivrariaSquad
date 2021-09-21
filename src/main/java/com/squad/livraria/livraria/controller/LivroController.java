@@ -21,7 +21,7 @@ import com.squad.livraria.livraria.repositories.GeneroRepository;
 import com.squad.livraria.livraria.repositories.LivroRepository;
 
 @RestController
-@RequestMapping(name = "livro")
+@RequestMapping("livro")
 public class LivroController {
 	
 	@Autowired
@@ -32,7 +32,7 @@ public class LivroController {
 	private GeneroRepository generoRepository;
 	
 	@GetMapping("listar")
-	public List<Livro> listarLivro(){
+	public List<Livro> listarLivros(){
 		return livroRepository.findAll();
 	}
 	
@@ -40,7 +40,8 @@ public class LivroController {
 	public Mensagem createLivro(@Validated @RequestBody Livro livro) {
 		LivroBiz livroBiz = new LivroBiz(this.autorRepository, this.generoRepository);
 		try {
-			if(livroBiz.validar(livro)) {				
+			if(livroBiz.validar(livro)) {	
+				livro.setId(null);
 				livroRepository.save(livro);
 				livroRepository.flush();		
 				livroBiz.getMensagem().mensagem.add("Livro adicionado");
