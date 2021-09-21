@@ -18,4 +18,22 @@ public class VendaLivro {
 	private Integer idvenda;
 	@Column(name="idlivro", nullable= false)
 	private Integer idlivro;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getIdvenda() {
+		return idvenda;
+	}
+	public void setIdvenda(Integer idvenda) {
+		this.idvenda = idvenda;
+	}
+	public Integer getIdlivro() {
+		return idlivro;
+	}
+	public void setIdlivro(Integer idlivro) {
+		this.idlivro = idlivro;
+	}
 }
