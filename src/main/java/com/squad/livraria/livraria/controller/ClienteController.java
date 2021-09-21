@@ -47,15 +47,23 @@ public class ClienteController {
 		return clienteBiz.getMensagens();
 	}
 	
-    @PutMapping("alterar/{id}")
-    public String alterarCliente(@PathVariable Integer id, @RequestBody @Validated Cliente cliente) {
+    @PutMapping(path="alterar/{id}")
+    public Mensagem alterarCliente(@PathVariable Integer id, @RequestBody @Validated Cliente cliente) {
         
+    	ClienteBiz clienteBiz = new ClienteBiz(clienteRepository);
+    	
         try{
-            clienteRepository.save(cliente);
-            clienteRepository.flush();
-            return cliente.toString();
+            if(clienteBiz.validar(cliente)) {
+            	clienteRepository.save(cliente);
+                clienteRepository.flush();
+                clienteBiz.getMensagens().mensagem.add("Cliente alterado com sucesso");
+            }else {
+            	clienteBiz.getMensagens().mensagem.add("Erro ao alterar");
+            }
+        	
         }catch(Exception e) {
-            return e.getMessage();
+            clienteBiz.getMensagens().mensagem.add("Erro ao alterar: " + e.getMessage());
         }
+        return clienteBiz.getMensagens();
     }
 }

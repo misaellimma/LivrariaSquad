@@ -63,10 +63,10 @@ public class ClienteBiz {
 	        }
 	    }
 		
-		if(cliente.getNome().isEmpty()) {
+		if(cliente.getTelefone().isEmpty()) {
 			mensagens.mensagem.add("O número de celular não pode estar vazio");
 			valido = false;
-		}else if(cliente.getNome().length() > 20) {
+		}else if(cliente.getTelefone().length() > 20) {
 			mensagens.mensagem.add("O nome é muito grande, ele deve ter até 20 caracteres");
 			valido = false;
 		}
