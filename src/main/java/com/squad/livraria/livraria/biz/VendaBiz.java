@@ -26,7 +26,7 @@ public class VendaBiz {
 		}
 		
 		if (clienteRepository.findById(novoVenda.getId_cliete()).isEmpty()) {
-			msg.mensagem.add(("O cliente do funcionario não existe"));
+			msg.mensagem.add(("O cliente da venda não existe"));
 			valido = false;
 		}
 		
