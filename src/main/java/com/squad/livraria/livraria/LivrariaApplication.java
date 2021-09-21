@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LivrariaApplication {
 
 	public static void main(String[] args) {
+		System.out.println("Iniciando processo...");
 		SpringApplication.run(LivrariaApplication.class, args);
+		System.out.println("Inicialização feita com sucesso. Acesso permitido");
 	}
-
 }
