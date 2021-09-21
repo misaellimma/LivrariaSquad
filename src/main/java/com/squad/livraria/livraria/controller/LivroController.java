@@ -41,7 +41,7 @@ public class LivroController {
 		LivroBiz livroBiz = new LivroBiz(this.autorRepository, this.generoRepository);
 		try {
 			if(livroBiz.validar(livro)) {	
-				livro.setId(null);
+				//livro.setId(null);
 				livroRepository.save(livro);
 				livroRepository.flush();		
 				livroBiz.getMensagem().mensagem.add("Livro adicionado");
@@ -55,12 +55,12 @@ public class LivroController {
 		return livroBiz.getMensagem();
 	}
 	
-	@PutMapping(path = "alterar/{id}")
-	public Mensagem UpdateCliente(@PathVariable("id") Integer id, @RequestBody Livro livro) {
-		LivroBiz livroBiz = new LivroBiz(this.autorRepository, this.generoRepository);
+	@PutMapping(path = "alterar")
+	public Mensagem UpdateCliente(@RequestBody Livro livro) {
+		LivroBiz livroBiz = new LivroBiz(autorRepository, generoRepository);
 		try {
 			if(livroBiz.validar(livro)) {
-				Optional<Livro> livroOptional = livroRepository.findById(id);
+				Optional<Livro> livroOptional = livroRepository.findById(livro.getId());
 				if(livroOptional.isPresent()) {
 					Livro livroAlterar = livroOptional.get();
 					livroAlterar.setTitulo(livro.getTitulo());
