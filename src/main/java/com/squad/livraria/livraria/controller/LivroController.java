@@ -32,7 +32,7 @@ public class LivroController {
 	private GeneroRepository generoRepository;
 	
 	@GetMapping("listar")
-	public List<Livro> listarCliente(){
+	public List<Livro> listarLivro(){
 		return livroRepository.findAll();
 	}
 	
