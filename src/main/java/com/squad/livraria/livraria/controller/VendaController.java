@@ -1,47 +1,51 @@
 package com.squad.livraria.livraria.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.squad.livraria.livraria.Mensagem;
 import com.squad.livraria.livraria.biz.VendaBiz;
 import com.squad.livraria.livraria.entities.Venda;
 import com.squad.livraria.livraria.repositories.ClienteRepository;
 import com.squad.livraria.livraria.repositories.VendaRepository;
 
+@RestController
+@RequestMapping("venda")
 public class VendaController {
 	@Autowired
 	private VendaRepository vendaRepositorio;
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private ClienteRepository clienteRepositorio;
 	
 	@GetMapping("listar")
 	public List<Venda> listar(){
 		return vendaRepositorio.findAll();
 	}
 	
-	@PostMapping("add")
-	public ArrayList<String> adicionar(@RequestBody Venda novoVenda) {
-		ArrayList<String> mensagens = new ArrayList<>();
-		VendaBiz validador = new VendaBiz(clienteRepository);
+	@PostMapping("incluir")
+	public Mensagem incluir(@RequestBody Venda novoVenda) {
+		
+		VendaBiz validador = new VendaBiz(clienteRepositorio);
 		
 		try {
-			validador.validarVenda(novoVenda);
-			vendaRepositorio.save(novoVenda);
-			vendaRepositorio.flush();
-			mensagens.add("Sucesso ao adicionar venda");
-		}catch(Exception error) {
-			mensagens.add("Erro ao adicionar venda");
-			mensagens.addAll(validador.getMsg());
-			mensagens.add(error.getMessage());
+			if (validador.validarVenda(novoVenda)) {
+				vendaRepositorio.save(novoVenda);
+				clienteRepositorio.flush();
+				validador.getMsg().mensagem.add("Incluido com sucesso");    
+			}
+		}catch(Exception e) {
+			validador.getMsg().mensagem.add("Erro ao Incluir:" + e.getMessage());
 		}
-		return mensagens;
+		
+		return validador.getMsg();
 	}
 	
-	}
+}
 
 
