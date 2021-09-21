@@ -3,6 +3,7 @@ package com.squad.livraria.livraria.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping("incluir")
-	public Mensagem incluirCliente(@RequestBody Cliente cliente) {
+	public Mensagem incluirCliente(@RequestBody @Validated Cliente cliente) {
 		
 		ClienteBiz clienteBiz = new ClienteBiz(clienteRepository);
 		
@@ -47,7 +48,7 @@ public class ClienteController {
 	}
 	
     @PutMapping("alterar/{id}")
-    public String alterarCliente(@PathVariable Integer id, @RequestBody Cliente cliente) {
+    public String alterarCliente(@PathVariable Integer id, @RequestBody @Validated Cliente cliente) {
         
         try{
             clienteRepository.save(cliente);
