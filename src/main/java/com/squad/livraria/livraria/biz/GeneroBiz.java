@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class GeneroBiz {
 
-    @Autowired
     private GeneroRepository generoRepository;
 
     private Mensagem msg;
 
     public GeneroBiz(GeneroRepository generoRepository) {
+        super();
+        this.msg = new Mensagem();
         this.generoRepository = generoRepository;
     }
 
@@ -40,4 +41,11 @@ public class GeneroBiz {
         this.msg = msg;
     }
 
+    public GeneroRepository getGeneroRepository() {
+        return generoRepository;
+    }
+
+    public void setGeneroRepository(GeneroRepository generoRepository) {
+        this.generoRepository = generoRepository;
+    }
 }
