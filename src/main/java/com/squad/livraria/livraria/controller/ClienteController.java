@@ -29,9 +29,10 @@ public class ClienteController {
 		return clienteRepository.findAll();
 	}
 	
-	@PostMapping("incluir")
+	@PostMapping(path="incluir")
 	public Mensagem incluirCliente(@RequestBody @Validated Cliente cliente) {
 		
+		cliente.setId(0);
 		ClienteBiz clienteBiz = new ClienteBiz(clienteRepository);
 		
 		try{
